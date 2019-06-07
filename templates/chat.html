@@ -1,8 +1,46 @@
 <html>
   <head>
     <title>Gabber</title>
+    <style>
+      input { display: block; }
+      ul { list-style: none; }
+    </style>
   </head>
   <body>
-    Let's Chat! (template)
+    <ul id="messages"></ul>
+    <form id="chat">
+      <textarea></textarea>
+      <input type="submit" value="send"></input>
+    </form>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
+    </script>
+    <script>
+      $(function() {
+        var socket = null;
+        var msgBox = $("#chat textarea");
+        var messages = $("#messages");
+        $("#chat").submit(function() {
+          if (!msgBox.val()) return false;
+          if (!socket) {
+            alert("Error: There is no socket connection.");
+            return false;
+          }
+          socket.send(msgBox.val());
+          msgBox.val("");
+          return false;
+        });
+        if (!window["WebSocket"]) {
+          alert("Your browser does not support websockets");
+        } else {
+          socket = new WebSocket("ws://localhost:8080/room");
+          socket.onclose = function() {
+            alert("Your socket has been closed.");
+          }
+          socket.onmessage = function(e) {
+            messages.append($("<li>").text(e.data));
+          }
+        }
+      });
+    </script>
   </body>
 </html>
