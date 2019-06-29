@@ -23,7 +23,13 @@ func main() {
 	flag.Parse()
 	r := newRoom()
 	r.tracer = smpltrace.New(os.Stdout)
+
+	// call the Handle function which registers the Handler with the pattern in defaultservermux
 	http.Handle("/", &templateHandler{filename: "chat.html"})
+
+	// our custom type room can be passed into the http.Handle function
+	// which requires a valid Handler interface. room is a valid Handler
+	// type simply because it implements the ServeHTTP function.
 	http.Handle("/room", r)
 
 	go r.run()
@@ -34,6 +40,7 @@ func main() {
 	}
 }
 
+// templateHandler, like room, satifies the Handler interface
 func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	t.once.Do(func() {
 		t.templ = template.Must(template.ParseFiles(filepath.Join("templates",
