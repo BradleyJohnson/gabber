@@ -4,9 +4,12 @@ import (
 	"flag"
 	"log"
 	"net/http"
+	"os"
 	"path/filepath"
 	"sync"
 	"text/template"
+
+	"github.com/BradleyJohnson/smpltrace"
 )
 
 type templateHandler struct {
@@ -19,6 +22,7 @@ func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse()
 	r := newRoom()
+	r.tracer = smpltrace.New(os.Stdout)
 	http.Handle("/", &templateHandler{filename: "chat.html"})
 	http.Handle("/room", r)
 
