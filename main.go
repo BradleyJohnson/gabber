@@ -30,6 +30,9 @@ func main() {
 	// our custom type room can be passed into the http.Handle function
 	// which requires a valid Handler interface. room is a valid Handler
 	// type simply because it implements the ServeHTTP function.
+
+	// Interestingly though, we can't visit that URL directly and actually the jacascript
+	// in chat.html is responsible for hitting that route and creating the socket for the client
 	http.Handle("/room", r)
 
 	go r.run()
