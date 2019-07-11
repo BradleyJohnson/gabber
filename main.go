@@ -28,6 +28,7 @@ func main() {
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 
 	http.Handle("/login", &templateHandler{filename: "login.html"})
+	http.HandleFunc("/auth/", loginHandler)
 
 	// our custom type room can be passed into the http.Handle function
 	// which requires a valid Handler interface. room is a valid Handler
