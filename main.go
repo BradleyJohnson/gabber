@@ -25,7 +25,9 @@ func main() {
 	r.tracer = smpltrace.New(os.Stdout)
 
 	// call the Handle function which registers the Handler with the pattern in defaultservermux
-	http.Handle("/", &templateHandler{filename: "chat.html"})
+	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
+
+	http.Handle("/login", &templateHandler{filename: "login.html"})
 
 	// our custom type room can be passed into the http.Handle function
 	// which requires a valid Handler interface. room is a valid Handler
