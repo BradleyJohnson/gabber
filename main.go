@@ -9,6 +9,9 @@ import (
 	"sync"
 	"text/template"
 
+	"github.com/stretchr/gomniauth"
+	"github.com/stretchr/gomniauth/providers/google"
+
 	"github.com/BradleyJohnson/smpltrace"
 )
 
@@ -21,6 +24,12 @@ type templateHandler struct {
 func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse()
+	// gomniauth
+	gomniauth.SetSecurityKey(os.Getenv("NEXUS_OAUTH2_KEY"))
+	gomniauth.WithProviders(
+		google.New(os.Getenv("GOOGLE_OAUTH2_CLIENT_ID"), os.Getenv("GOOGLE_OAUTH2_SECRET"), "https://localhost8080/auth/callback/google"),
+	)
+
 	r := newRoom()
 	r.tracer = smpltrace.New(os.Stdout)
 
