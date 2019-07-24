@@ -28,7 +28,7 @@ func main() {
 	// gomniauth
 	gomniauth.SetSecurityKey(signature.RandomKey(64))
 	gomniauth.WithProviders(
-		google.New(os.Getenv("GOOGLE_OAUTH2_CLIENT_ID"), os.Getenv("GOOGLE_OAUTH2_SECRET"), "https://localhost8080/auth/callback/google"),
+		google.New(os.Getenv("GOOGLE_OAUTH2_CLIENT_ID"), os.Getenv("GOOGLE_OAUTH2_SECRET"), "http://localhost:8080/auth/callback/google"),
 	)
 
 	r := newRoom()
