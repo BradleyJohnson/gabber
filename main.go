@@ -11,6 +11,7 @@ import (
 
 	"github.com/stretchr/gomniauth"
 	"github.com/stretchr/gomniauth/providers/google"
+	"github.com/stretchr/signature"
 
 	"github.com/BradleyJohnson/smpltrace"
 )
@@ -25,7 +26,7 @@ func main() {
 	var addr = flag.String("addr", ":8080", "The addr of the application.")
 	flag.Parse()
 	// gomniauth
-	gomniauth.SetSecurityKey(os.Getenv("NEXUS_OAUTH2_KEY"))
+	gomniauth.SetSecurityKey(signature.RandomKey(64))
 	gomniauth.WithProviders(
 		google.New(os.Getenv("GOOGLE_OAUTH2_CLIENT_ID"), os.Getenv("GOOGLE_OAUTH2_SECRET"), "https://localhost8080/auth/callback/google"),
 	)
