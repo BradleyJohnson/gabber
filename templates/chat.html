@@ -1,19 +1,29 @@
 <html>
   <head>
     <title>Gabber</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
-      input { display: block; }
-      ul { list-style: none; }
+      ul#messages { list-style: none; }
+      ul#messages li { margin-bottom: 2px; }
+      ul#messages li img { margin-right: 10px; }
     </style>
   </head>
   <body>
-    <ul id="messages"></ul>
-    <form id="chat">
-      {{.UserData.name}}:<br/>
-      <textarea></textarea>
-      <input type="submit" value="send"></input>
-      or <a href="/logout">sign out</a>
-    </form>
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <ul id="messages"></ul>
+        </div>
+      </div>
+      <form is="chat" role="form">
+        <div class="form-group">
+          <label for="message">Send a message as {{.UserData.name}}</label> or <a href="/logout">Sign Out</a>
+          <textarea id="message" class="form-control"></textarea>
+        </div>
+        <input type="submit" value="Send" class="btn btn-default">
+      </form>
+    </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
     </script>
     <script>
