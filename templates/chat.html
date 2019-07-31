@@ -16,12 +16,12 @@
           <ul id="messages"></ul>
         </div>
       </div>
-      <form is="chat" role="form">
+      <form id="chat" role="form">
         <div class="form-group">
           <label for="message">Send a message as {{.UserData.name}}</label> or <a href="/logout">Sign Out</a>
           <textarea id="message" class="form-control"></textarea>
         </div>
-        <input type="submit" value="Send" class="btn btn-default">
+        <input type="submit" value="Send" class="btn btn-primary">
       </form>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">
